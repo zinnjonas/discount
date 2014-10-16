@@ -73,12 +73,14 @@ main(int argc, char **argv)
     int styles = 0;
     int use_mkd_line = 0;
     int github_flavoured = 0;
+    int temp = 0;
     char *extra_footnote_prefix = 0;
     char *urlflags = 0;
     char *text = 0;
     char *ofile = 0;
     char *urlbase = 0;
     char *q;
+    char *templ = 0;
     MMIOT *doc;
 
     if ( q = getenv("MARKDOWN_FLAGS") )
@@ -87,8 +89,10 @@ main(int argc, char **argv)
     pgm = basename(argv[0]);
     opterr = 1;
 
-    while ( (opt=getopt(argc, argv, "5b:C:df:E:F:Gno:s:St:TV")) != EOF ) {
+    while ( (opt=getopt(argc, argv, "5b:i:C:df:E:F:Gno:s:St:TV")) != EOF ) {
 	switch (opt) {
+  case 'i': templ = optarg; temp = 1;
+        break;
 	case '5':   with_html5 = 1;
 		    break;
 	case 'b':   urlbase = optarg;
@@ -199,12 +203,41 @@ main(int argc, char **argv)
 	    rc = 1;
 	    if ( mkd_compile(doc, flags) ) {
 		rc = 0;
+		FILE* pf;
+		if( temp)
+    {
+      pf = fopen(templ, "r");
+      char c;
+      while( (c = getc(pf)) != EOF )
+      {
+        if( c == '#')
+        {
+          if( ( c = getc(pf)) == 'C'
+           && ( c = getc(pf)) == 'O'
+           && ( c = getc(pf)) == 'D'
+           && ( c = getc(pf)) == 'E')
+            break;
+        }
+        else
+          fputc(c, stdout);
+      }
+
+    }
 		if ( styles )
 		    mkd_generatecss(doc, stdout);
 		if ( toc )
 		    mkd_generatetoc(doc, stdout);
 		if ( content )
 		    mkd_generatehtml(doc, stdout);
+    if( temp)
+    {
+      char c;
+      while( (c = getc(pf)) != EOF)
+      {
+        fputc( c, stdout);
+      }
+      fclose(pf);
+    }
 		mkd_cleanup(doc);
 	    }
 	}
