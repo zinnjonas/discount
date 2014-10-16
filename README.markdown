@@ -15,6 +15,8 @@ manual pages describing how they work.
 
 The file INSTALL describes how to build and install discount
 
+**Edit: hopefully i can make a cpp rewrite**
+
 ##TEST Markdown 
 | Tables   |      Are      |  Cool |
 |----------|:-------------:|------:|
