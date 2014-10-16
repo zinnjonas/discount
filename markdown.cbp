@@ -11,9 +11,14 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="-5GS -o config.html config.md" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
+				<Linker>
+					<Add library="markdownd" />
+					<Add directory="D:/Dokumente/Programming/cpp/discount/bin/Debug/" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/markdown" prefix_auto="1" extension_auto="1" />
@@ -25,14 +30,27 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="markdown" />
+					<Add directory="D:/Dokumente/Programming/cpp/discount/bin/Release/" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add directory="." />
 		</Compiler>
-		<Unit filename="main.cpp" />
+		<Unit filename="amalloc.h" />
+		<Unit filename="config.h" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="mkdio.h" />
+		<Unit filename="pgm_options.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="pgm_options.h" />
+		<Unit filename="tags.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
