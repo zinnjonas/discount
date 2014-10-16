@@ -3,3 +3,6 @@
 *.layout
 *.depend
 *.bmarks
+*.exe
+obj
+bin
